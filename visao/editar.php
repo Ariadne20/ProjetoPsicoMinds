@@ -1,23 +1,22 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-
 <?php
         include_once("../modelo/sessao.php");
         session_start();
-        $id = unserialize($_SESSION['obj_sessao'])->getId();
-        $especialidade = unserialize($_SESSION['obj_sessao'])->getEspecialidade();
-        $custoHora = unserialize($_SESSION['obj_sessao'])->getCustoHora();
-        $dataSessao = unserialize($_SESSION['obj_sessao'])->getDataSessao();
-        $horario = unserialize($_SESSION['obj_sessao'])->getHorario();
-        $descricao = unserialize($_SESSION['obj_sessao'])->getDescricao();
-    ?>
+        $id = unserialize($_SESSION['sessao'])->getId();
+        $especialidade = unserialize($_SESSION['sessao'])->getEspecialidade();
+        $custoHora = unserialize($_SESSION['sessao'])->getCustoHora();
+        $dataSessao = unserialize($_SESSION['sessao'])->getDataSessao();
+        $horario = unserialize($_SESSION['sessao'])->getHorario();
+        $descricao = unserialize($_SESSION['sessao'])->getDescricao();
+?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/criarAnuncio.css">
+    <link rel="stylesheet">
     <style>
         body {
         background-color: #e5e5e5;
@@ -192,11 +191,37 @@
             color: #9c98a6;
         }
 
+        #descricaoses1{
+            position:absolute;
+            width: 146px;
+            height: 24px;
+            top: 500px;
+            left: 20px;
+            font-family: Poppins;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 14px;
+            line-height: 24px;
+            color: #9c98a6;
+        }
+
+        #Descricao1{
+            width: 608px;
+            height: 40px;
+            border-radius: 8px;
+            top: 530px;
+            left: 50px;
+            position: absolute;
+            background-color: #FAFAFC;
+            border: 1px solid #e6e6f0;
+            box-sizing: border-box;    
+        }
+
         #Descricao{
             width: 608px;
             height: 123px;
             border-radius: 8px;
-            top: 360px;
+            top: 350px;
             left: 50px;
             position: absolute;
             background-color: #FAFAFC;
@@ -323,7 +348,7 @@
 
                 <fieldset id="fildvalor">
                     <legend id="custodahora">Custo por hora (R$) </legend>
-                    <p><input type="number" id="custo" name="custoHora" value="<?php echo $custoHora ?>"></p>
+                    <p><input type="number" id="custo" name="custoHora" value="<?php echo $custoHora?>"></p>
                 </fieldset>
 
 
@@ -342,10 +367,10 @@
                     </label>
                     <h1 id="dataSessaodases">data e horario da sessão</h1>
                     <label for="dataSessao"></label>
-                    <input type=date name="dataSessao" id="input_date" min="2021-11-01" max="2025-12-31" value="<?php echo $dataSessao ?>">
+                    <input type=date name="dataSessao" id="input_date" min="2021-11-01" max="2025-12-31" value="<?php echo $dataSessao?>">
 
                     <label class="Horario"></label>
-                    <input type="time" name="horario" id="input_time"  value="<?php echo $horario ?>">
+                    <input type="time" name="horario" id="input_time"  value="<?php echo $horario?>">
 
                 </fieldset>
 
@@ -355,10 +380,11 @@
                     <label for="Descricao">
 
                     </label>
-                    <textarea name="descricao" id="Descricao" cols="50" rows="10" value="<?php echo $descricao ?>"></textarea>
+                    <input type="text" name="descricao" id="Descricao" cols="50" rows="10" value="<?php echo $descricao?>">
 
                 </fieldset>
-        
+
+
 
             <fieldset id="rodape">
                 <p id="frase_roda">Importante!<br>
@@ -366,7 +392,7 @@
                 </p>
                 <img src="https://w7.pngwing.com/pngs/148/181/png-transparent-bristow-public-domain-purple-exclamation-mark-angle-violet-triangle-thumbnail.png"
                     id="imagem_rod">
-                    <input type='hidden' name='id' value="<?php echo $id ?>" />
+                    <input type='hidden' name='id' value="<?php echo $id?>" />
                     <button  type= submit; name="salvarAlteracoes" id="botao2"><a class="a">Salvar Alterações</a></button>
             </fieldset>
 

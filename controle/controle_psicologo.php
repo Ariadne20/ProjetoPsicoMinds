@@ -13,3 +13,7 @@ if (isset($_POST['bt_enviar'])) {
     $psicologoDAO->login($_POST['email'], $_POST['senha']); 
 }
 
+if (isset($_POST['sair'])) {
+    $psicologoDAO->fazerLogout();
+}
+

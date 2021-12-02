@@ -1,3 +1,6 @@
+    <?php
+    session_start();
+    ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -342,11 +345,18 @@
 <body>
 
     <header>
-        <a href="../visao/Login.php"><img src="https://www.nicepng.com/png/full/114-1149034_download-svg-download-png-brain-emoji-transparent-background.png"
-                id="imagem_header"></a>
+            <form method="post" action="../controle/controle_psicologo.php">
+                <input style="margin:5px" type="submit" name="sair" value="Sair">
+            </form>
+        </a>
         </nav>
         <h1 id="Psicominds"> PSICOMINDS</h1>
-        <h2 id="FrasePsico">Olá, o que deseja fazer?</h2>
+        <h2 id="FrasePsico">    
+            <?php
+                echo "<h2 id='Fraseanuncio'>E-mail do usuário logado: " . $_SESSION['email'] . "</h2>";
+            ?>
+        </h2>
+        <h2 id="FrasePsico"> O que você deseja fazer? </h2>
     </header>
 
     <div id="container">

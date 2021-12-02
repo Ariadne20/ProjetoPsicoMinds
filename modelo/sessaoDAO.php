@@ -20,6 +20,8 @@ class sessaoDAO
 
     function listar()
     {
+        include_once("../modelo/sessao.php");
+
         $pdo = new PDO("mysql:host=localhost;dbname=projeto_psicominds", "root", "");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -115,7 +117,7 @@ class sessaoDAO
         echo "</body></html>";
     }
 
-    function buscarSessao($especialidade, $dataSessao)
+    function buscarSessao($especialidade)
     {
     
         include_once("../modelo/sessao.php");
@@ -186,6 +188,17 @@ class sessaoDAO
         '<a href="../visao/criarAnuncio.php"> <img style="position:absolute;width:32px;height:32px;left:224px;top:120px" src="https://cdn-icons-png.flaticon.com/512/189/189689.png" alt="Adicionar anúncio"></a>';
         echo "</header>";
 
+        echo '<table style="padding:0px;margin-top:200px;margin-left:0px;text-align:middle;width:1300px">';
+        echo '<tr style="text-align:left; width:200px; font-size:20px; background-color:gray; text-align:center">
+        <th>Id</th>
+        <th>Especialidade</th>
+        <th>Custo da sessão</th>
+        <th>Data da sessão</th>
+        <th>Horário</th>
+        <th>Descrição</th>
+        <th>Ações</th>
+        </tr>';
+
         if ($total_retornado  === 0) {
             echo "<script>alert('Não há sessões cadastradas')</script>";
         } else {
@@ -224,8 +237,7 @@ class sessaoDAO
             $delete->execute();
 
             echo "<script>alert('" .  $delete->rowCount() .
-                " sessão deletada com sucesso!');" .
-                " window.location = '../visao/home.php';</script>";
+                " sessão deletada com sucesso!') </script>";
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
@@ -241,7 +253,7 @@ class sessaoDAO
             session_start();
             include_once("../modelo/sessao.php");
             $sessao = new sessao($linha['id'],$linha['especialidade'], $linha['custoHora'], $linha['dataSessao'], $linha['horario'], $linha['descricao']);
-            $_SESSION['obj_sessao'] = serialize($sessao);
+            $_SESSION['sessao'] = serialize($sessao);
             header("location:../visao/editar.php");
         }
         } catch (PDOException $e) {
@@ -249,41 +261,19 @@ class sessaoDAO
         } 
     }
 
-    
-    function Editar2($id) {
+    function SalvarEdicao($id, $especialidade, $custoHora, $dataSessao, $horario, $descricao){
         try {
         $pdo = new PDO("mysql:host=localhost;dbname=projeto_psicominds", "root", "");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $consulta = $pdo->query("SELECT id,especialidade,custoHora,dataSessao,horario,descricao FROM sessao WHERE id = '$id'");      
-        
-        echo " <!doctype html>";
-        echo "<html lang='pt-br'>";
-        echo "<head>";
-        echo " <meta charset='utf-8'>";
-        echo " <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>";
-        echo "<title>Editar</title>";
-
-        echo "</head>";
-        echo "<body>";
-        
-        while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
-            session_start();
-            include_once("../modelo/sessao.php");
-            $sessao = new sessao($linha['id'],$linha['especialidade'], $linha['custoHora'], $linha['dataSessao'], $linha['horario'], $linha['descricao']);
-            echo '<form method="post" action="../controle/controle_cliente.php">';
-            echo '<div">';
-            '<div class="col">';
-            '<label for="nome" class="form-label">especialidade</label>';
-            "<input type='nome' class'form-control' id='nome' name='nome' value='. $linha[id]>'";
-            '</div>';
-            '</div>';
-        }
+        $editar = $pdo->query("UPDATE sessao SET especialidade ='$especialidade', custoHora='$custoHora',dataSessao ='$dataSessao',horario ='$horario',descricao ='$descricao' WHERE id= '$id'");
+        $editar->execute();
+        echo "<script>alert('Alterado com sucesso!');</script>";
         } catch (PDOException $e) {
         echo 'Error: ' . $e->getMessage();
-        } 
+        }
     }
 
-    function SalvarEdicao($id, $especialidade, $custoHora, $dataSessao, $horario, $descricao){
+    function Edição2($id, $especialidade, $custoHora, $dataSessao, $horario, $descricao){
         try {
         $pdo = new PDO("mysql:host=localhost;dbname=projeto_psicominds", "root", "");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

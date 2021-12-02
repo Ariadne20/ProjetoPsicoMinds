@@ -12,7 +12,7 @@ class Psicologo{
     private $senha;
 
 
-    function _construct($id,$nomeCompleto,$urlFoto,$whatsapp,$email,$genero,$especialidade,$tempoExperiencia,$crp,$senha){
+    function __construct($id,$nomeCompleto,$urlFoto,$whatsapp,$email,$genero,$especialidade,$tempoExperiencia,$crp,$senha){
         $this->id = $id;
         $this->nomeCompleto = $nomeCompleto;
         $this->urlFoto = $urlFoto;

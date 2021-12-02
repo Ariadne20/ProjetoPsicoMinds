@@ -7,7 +7,7 @@ class sessao{
     private $horario;
     private $descricao;
 
-    function _construct($id,$especialidade,$custoHora,$dataSessao,$horario,$descricao){
+    function __construct($id,$especialidade,$custoHora,$dataSessao,$horario,$descricao){
         $this->id = $id;
         $this->especialidade = $especialidade;
         $this->custoHora = $custoHora;

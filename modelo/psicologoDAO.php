@@ -21,11 +21,20 @@ class psicologoDAO
 
     function login($email, $senha){
 
+        $pdo  = new PDO("mysql:host=localhost;dbname=projeto_psicominds", "root", "");
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+        session_start();
+
+        $_SESSION['email'] = $email;
+        $_SESSION['senha'] = $senha;
+
         try {
             $pdo  = new PDO("mysql:host=localhost;dbname=projeto_psicominds", "root", "");
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            if(empty($email)||empty($senha)){
+
+            if(empty($_SESSION['email'])||empty($_SESSION['senha'])){
                 echo "<script>alert('Usuário ou senha sem preencher');".
                 " window.location = '../visao/login.php';</script>";
             }
@@ -41,6 +50,14 @@ class psicologoDAO
         }catch (PDOException $e) {
                 echo 'Error: ' . $e->getMessage();
         }
+    }
+
+    
+    function fazerLogout(){
+        session_start();
+        session_destroy();
+        unset($_SESSION);
+        header("Location:../visao/Login.php");
     }
 }
     
